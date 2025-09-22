@@ -78,9 +78,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="p-8 bg-white rounded-2xl border-2 border-black hover:shadow-lg transition-shadow">
               <div className="mb-6">
-                <img
+                <Image
                   src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/PlaceholderImage_1758538831609.png"
                   alt="MIG Welding Robot"
+                  width={400}
+                  height={300}
                   className="w-[100%] h-[70%] object-contain "
                 />
               </div>
@@ -116,9 +118,11 @@ export default function Home() {
 
             <div className="bg-white p-8 rounded-2xl border-2 border-black hover:shadow-lg transition-shadow">
               <div className="mb-6 ">
-                <img
+                <Image
                   src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/PlaceholderImage_1758538831609.png"
-                  alt="MIG Welding Robot"
+                  alt="Laser Welding Robot"
+                  width={400}
+                  height={300}
                   className="w-[100%] h-[70%] object-contain "
                 />
               </div>
@@ -223,6 +227,7 @@ export default function Home() {
                   <div className="flex justify-end h-130">
                     <img
                       src={service.image}
+                      alt={service.title}
                       className="w-[90%]  object-full rounded-md"
                     />
                   </div>
@@ -450,8 +455,8 @@ export default function Home() {
                 <div className="flex text-yellow-400 text-xl">★★★★★</div>
               </div>
               <blockquote className="text-lg mb-6 leading-relaxed">
-                "Our weld quality improved by 40% while significantly reducing
-                production costs."
+                &quot;Our weld quality improved by 40% while significantly reducing
+                production costs.&quot;
               </blockquote>
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-white/20 rounded-full mr-4"></div>
@@ -490,9 +495,9 @@ export default function Home() {
         <div className="container mx-auto px-4 lg:px-16">
           <div className="max-w-4xl mx-auto text-center">
             <blockquote className="text-2xl lg:text-4xl font-light mb-8 leading-relaxed">
-              "This platform has completely transformed how we operate. The
+              &quot;This platform has completely transformed how we operate. The
               results speak for themselves - increased efficiency, better
-              insights, and happier customers."
+              insights, and happier customers.&quot;
             </blockquote>
             <div className="flex items-center justify-center space-x-4">
               <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
