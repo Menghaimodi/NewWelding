@@ -51,7 +51,7 @@ export default function Home() {
           <p className="text-lg md:text-xl lg:text-2xl mb-8 opacity-90 max-w-4xl mx-auto">
             Revolutionize your manufacturing with cutting-edge welding robots
             that deliver precision and efficiency. Transform your production
-            capabilities with IIMT's advanced robotic solutions.
+            capabilities with IIMT&apos;s advanced robotic solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
