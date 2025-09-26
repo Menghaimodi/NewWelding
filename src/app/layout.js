@@ -1,3 +1,12 @@
+/*
+ * @Author: 我会想你的哈哈 2421145805@qq.com
+ * @Date: 2025-09-22 17:35:51
+ * @LastEditors: 我会想你的哈哈 2421145805@qq.com
+ * @LastEditTime: 2025-09-26 16:41:55
+ * @FilePath: \new-welding\src\app\layout.js
+ * @Description: 
+ * 
+ */
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
