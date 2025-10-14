@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { Carousel } from "@arco-design/web-react";
+import Top from "@/app/components/Top";
+import Bottom from "@/app/components/Bottom";
 import "@arco-design/web-react/dist/css/arco.css";
 const textContent = [
   {
@@ -26,57 +29,42 @@ const textContent = [
   },
 ];
 export default function Home() {
+  const sectionRefs = useRef([]);
+  // 设置元素到数组
+  const setSectionRef = (index) => (el) => {
+    sectionRefs.current[index] = el;
+  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target); // 单次触发后停止观察
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    sectionRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      sectionRefs.current.forEach((el) => {
+        if (el) observer.unobserve(el);
+      });
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
-      <nav className="fixed top-0 inset-x-0 z-50 bg-black/80 backdrop-blur-sm">
-        <div className="container mx-auto px-2 sm:px-4 lg:px-16 py-4">
-          <div className="flex items-center justify-between">
-            <div
-              className="text-white font-bold text-xl flex-shrink-0"
-            >
-              <Image
-                src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/CompanyLogo(1)_1758870047961.png"
-                alt="MIG Welding Robot"
-                width={400}
-                height={300}
-                className="w-[120px] sm:w-[150px] md:w-[180px] xl:w-[50%] 2xl:w-[30%] object-contain"
-              />
-            </div>
-            <div className="hidden md:flex items-center space-x-8 2xl:!text-xl">
-              <a
-                href="#"
-                className="text-white hover:text-gray-300 transition-colors"
-              >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-gray-300 transition-colors"
-              >
-                About
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-gray-300 transition-colors"
-              >
-                Services
-              </a>
-              <a
-                href="#"
-                className="text-white hover:text-gray-300 transition-colors"
-              >
-                Contact
-              </a>
-            </div>
-            <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-              Get Started
-            </button>
-          </div>
-        </div>
-      </nav>
+      {/* 导航栏 */}
+      <Top />
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className=" relative h-screen flex items-center justify-center overflow-hidden">
         {/* 视频背景 */}
         <video
           className="absolute inset-0 w-full h-full object-cover"
@@ -95,7 +83,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/50"></div>
 
         {/* 内容层 */}
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto ">
+        <div
+          ref={setSectionRef(0)}
+          className="scroll-animation relative z-10 text-center text-white px-4 max-w-4xl mx-auto "
+        >
           <h1 className="text-4xl md:!text-3xl 2xl:!text-6xl lg:!text-5xl  font-bold mb-6 leading-tight max-w-5xl mx-auto">
             Welding the Future with Intelligent Robotics
           </h1>
@@ -116,7 +107,10 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 lg:py-28 px-4 lg:px-16">
+      <section
+        ref={setSectionRef(1)}
+        className="py-16 lg:py-28 px-4 lg:px-16 scroll-animation"
+      >
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold mb-4">
@@ -130,11 +124,11 @@ export default function Home() {
             <div className="p-8 bg-white rounded-2xl border-2 border-black hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <Image
-                  src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/PlaceholderImage_1758538831609.png"
+                  src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/MIG_1760429365198.png"
                   alt="MIG Welding Robot"
-                  width={400}
-                  height={300}
-                  className="w-[100%] h-[70%] object-contain "
+                  width={500}
+                  height={500}
+                  className="w-[100%] 2xl:h-[350px] xl:h-[280px] object-contain"
                 />
               </div>
               <div className="">
@@ -170,11 +164,11 @@ export default function Home() {
             <div className="bg-white p-8 rounded-2xl border-2 border-black hover:shadow-lg transition-shadow">
               <div className="mb-6 ">
                 <Image
-                  src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/LaserWeldingRobot_1758678418295.png"
+                  src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Laser_1760429195740.png"
                   alt="Laser Welding Robot"
                   width={400}
                   height={300}
-                  className="w-[100%] h-[70%] object-contain "
+                  className="w-[100%] h-[350px] xl:h-[280px] object-contain "
                 />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-black 2xl:!text-4xl xl:!text-2xl">
@@ -208,7 +202,10 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 lg:py-28  lg:px-16 bg-gray-50 ">
+      <section
+        ref={setSectionRef(2)}
+        className="py-16 lg:py-28  lg:px-16 bg-gray-50 scroll-animation"
+      >
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <p className="mb-6 xl:text-xl">Technology</p>
@@ -276,7 +273,10 @@ export default function Home() {
                         <button className="text-sm px-4 py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors">
                           Details
                         </button>
-                        <button style={{marginLeft:"4%"}} className="text-sm text-black font-medium hover:underline">
+                        <button
+                          style={{ marginLeft: "4%" }}
+                          className="text-sm text-black font-medium hover:underline"
+                        >
                           More →
                         </button>
                       </div>
@@ -381,7 +381,10 @@ export default function Home() {
       </section>
 
       {/* Product Details Section */}
-      <section className="py-16 lg:py-28">
+      <section
+        ref={setSectionRef(3)}
+        className="py-16 lg:py-28 scroll-animation"
+      >
         <div className="container mx-auto px-4 lg:px-16">
           <div className="space-y-16 flex flex-col items-center">
             {[
@@ -389,10 +392,10 @@ export default function Home() {
                 category: "Solution",
                 title: "Portable MIG Welding Robot",
                 imgfile:
-                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Solution_1758856965771.png",
+                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Solution_1760438819658.png",
                 ImgItems: [
-                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem1_1758857671377.png",
-                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem2_1758857700885.png",
+                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem1_1760438357109.png",
+                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem2_1760438375381.png",
                 ],
                 features: [
                   "Portable with magnetic base - easy to deploy in any position",
@@ -406,10 +409,10 @@ export default function Home() {
                 category: "Innovation",
                 title: "Portable Laser Welding Robot",
                 imgfile:
-                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Innovation_1758857071223.png",
+                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Innovation_1760438861503.png",
                 ImgItems: [
-                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem1_1758857671377.png",
-                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem2_1758857700885.png",
+                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem3_1760438620792.png",
+                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/soulutionitem2_1760438375381.png",
                 ],
                 features: [
                   "High-precision laser welding with seam tracking capability",
@@ -495,7 +498,10 @@ export default function Home() {
       </section>
 
       {/* Industries Section */}
-      <section className="py-16 lg:py-28 bg-gray-50 ">
+      <section
+        ref={setSectionRef(4)}
+        className="py-16 lg:py-28 bg-gray-50 scroll-animation"
+      >
         <div className="container mx-auto px-4 lg:px-16">
           <div className="text-center mb-12">
             <div className="text-sm text-gray-500 mb-2 xl:text-xl">
@@ -605,7 +611,10 @@ export default function Home() {
 
       {/* Ready to Automate Welding CTA Section */}
       <section className="py-16 lg:py-28 bg-white text-center">
-        <div className="container mx-auto px-4 lg:px-16">
+        <div
+          ref={setSectionRef(5)}
+          className="container mx-auto px-4 lg:px-16 scroll-animation"
+        >
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl lg:text-6xl font-bold mb-6">
               Ready to Automate Welding
@@ -628,7 +637,10 @@ export default function Home() {
 
       {/* Success Stories Section */}
       <section className="py-16 lg:py-28 bg-blue-400">
-        <div className="container mx-auto px-4 lg:px-16">
+        <div
+          ref={setSectionRef(6)}
+          className="scroll-animation container mx-auto px-4 lg:px-16"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl lg:text-5xl font-bold mb-6 xl:text-6xl">
@@ -643,10 +655,10 @@ export default function Home() {
                 showArrow="never"
                 indicatorPosition="outer"
                 autoPlay={true}
-                style={{ 
-                  width: "100%", 
+                style={{
+                  width: "100%",
                   height: "auto",
-                  minHeight: "200px"
+                  minHeight: "200px",
                 }}
               >
                 {textContent.map((content, index) => (
@@ -664,17 +676,21 @@ export default function Home() {
                   >
                     <h3
                       className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 leading-tight"
-                      style={{ margin: "0 0 12px 0", wordWrap: "break-word", hyphens: "auto" }}
+                      style={{
+                        margin: "0 0 12px 0",
+                        wordWrap: "break-word",
+                        hyphens: "auto",
+                      }}
                     >
                       {content.title}
                     </h3>
                     <p
                       className="text-sm sm:text-base md:text-lg leading-relaxed max-w-full"
-                      style={{ 
-                        margin: "0", 
-                        wordWrap: "break-word", 
+                      style={{
+                        margin: "0",
+                        wordWrap: "break-word",
                         hyphens: "auto",
-                        lineHeight: "1.5"
+                        lineHeight: "1.5",
                       }}
                     >
                       {content.description}
@@ -689,7 +705,6 @@ export default function Home() {
 
       {/* 集萃照片 */}
       <section>
-        {" "}
         <Image
           src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/南京公司大楼照片1_1758849804131.JPG"
           alt="MIG Welding Robot"
@@ -703,7 +718,10 @@ export default function Home() {
 
       {/* Testimonial Section */}
       <section className="py-16 lg:py-28 bg-white text-black">
-        <div className="container mx-auto px-4 lg:px-16">
+        <div
+          ref={setSectionRef(7)}
+          className="scroll-animation container mx-auto px-4 lg:px-16"
+        >
           <div className="max-w-4xl mx-auto text-center">
             <div className="xl:text-2xl">Innovation</div>
             <blockquote className="text-2xl 2xl:!text-4xl xl:!text-2xl font-light mb-8 leading-relaxed xl:mt-4">
@@ -722,363 +740,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-16 px-4 lg:px-16">
-        <div className="container mx-auto">
-          {/* Impact Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            <div>
-              <div className="text-sm text-gray-400 mb-2">Impact</div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6 2xl:!text-6xl xl:!text-4xl">
-                Our Impact in Numbers
-              </h2>
-              <p className="text-gray-300 mb-6 max-w-md 2xl:!text-2xl xl:!text-xl xl:max-w-2xl">
-                Measuring our commitment to technological innovation and global
-                manufacturing excellence
-              </p>
-              <div className="text-gray-400">→</div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-12">
-              <div className="border-l-4 border-white p-6">
-                <div className="text-4xl font-bold mb-2 2xl:!text-6xl xl:!text-3xl">
-                  380+
-                </div>
-                <div className="text-gray-300 text-sm 2xl:!text-lg xl:!text-base">
-                  Patents and Copyrights
-                </div>
-              </div>
-              <div className="border-l-4 border-white p-6">
-                <div className="text-4xl font-bold mb-2 2xl:!text-6xl xl:!text-3xl">
-                  30+
-                </div>
-                <div className="text-gray-300 text-sm 2xl:!text-lg xl:!text-base">
-                  Countries Served
-                </div>
-              </div>
-              <div className="border-l-4 border-white p-6">
-                <div className="text-4xl font-bold mb-2 2xl:!text-6xl xl:!text-3xl">
-                  1000+
-                </div>
-                <div className="text-gray-300 text-sm 2xl:!text-lg xl:!text-base">
-                  Annual Production Units
-                </div>
-              </div>
-              <div className="border-l-4 border-white p-6">
-                <div className="text-4xl font-bold mb-2 2xl:!text-6xl xl:!text-3xl">
-                  24/7
-                </div>
-                <div className="text-gray-300 text-sm 2xl:!text-lg xl:!text-base">
-                  Global Support
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Newsletter Section */}
-          <div className="mb-16"></div>
-
-          {/* Links Section */}
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-12">
-            <div>
-              <div className="mb-6">
-                <div className="text-xl font-bold">
-                  <Image
-                    src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/CompanyLogo(1)_1758870047961.png"
-                    alt="MIG Welding Robot"
-                    width={1400}
-                    height={1300}
-                    className="w-[45%] h-[60%] object-contain "
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="font-semibold mb-4 xl:text-2xl">Company</div>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    About us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Press
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    News
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div className="font-semibold mb-4  xl:text-2xl">Solutions</div>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    MIG Robot
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Laser Robot
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Industries
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Support
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Resources
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div className="font-semibold mb-4  xl:text-2xl">Support</div>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Training
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Community
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Legal
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Terms
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div className="font-semibold mb-4  xl:text-2xl">Connect</div>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    LinkedIn
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    YouTube
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Twitter
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Facebook
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div className="font-semibold mb-4  xl:text-2xl">Global</div>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors xl:text-xl xl:leading-10"
-                  >
-                    United States
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    China
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Europe
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Asia Pacific
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white transition-colors 2xl:!text-lg xl:!text-base xl:leading-10"
-                  >
-                    Middle East
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom Section */}
-          <div className="border-t-3 border-white pt-8 flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0 2xl:!text-lg xl:!text-base">
-              © 2025 IIMT Welding Robotics. All rights reserved.
-            </div>
-            <div className="flex items-center space-x-4  2xl:!text-lg xl:!text-base">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Cookies Settings
-              </a>
-              <div className="flex space-x-3 ml-6">
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  📘
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  📷
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  🐦
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  💼
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  📺
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Bottom />
     </div>
   );
 }

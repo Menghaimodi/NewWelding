@@ -1,7 +1,24 @@
 @import "tailwindcss";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+
+.scroll-animation {
+  opacity: 0;
+  transform: translateY(120px);
+  transition: all 3.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-animation.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 为Bottom组件添加特定延迟类 */
+.bottom-animation {
+  transition-delay: 300ms !important; /* 300毫秒延迟 */
 }
 
 @theme inline {
