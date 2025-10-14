@@ -2,7 +2,7 @@
  * @Author: 我会想你的哈哈 2421145805@qq.com
  * @Date: 2025-10-14 09:50:15
  * @LastEditors: 我会想你的哈哈 2421145805@qq.com
- * @LastEditTime: 2025-10-14 18:53:52
+ * @LastEditTime: 2025-10-14 19:01:18
  * @FilePath: \new-welding\src\app\components\Bottom\index.js
  * @Description: 
  * 
@@ -22,7 +22,7 @@ export default function Bottom() {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.classList.add('active');
-          }, 600); // 300ms延迟执行
+          }, 550); // 300ms延迟执行
         }
       });
     },
