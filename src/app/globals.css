@@ -18,7 +18,7 @@
 
 /* 为Bottom组件添加特定延迟类 */
 .bottom-animation {
-  transition-delay: 300ms !important; /* 300毫秒延迟 */
+  transition-delay: 100ms !important; /* 300毫秒延迟 */
 }
 
 @theme inline {

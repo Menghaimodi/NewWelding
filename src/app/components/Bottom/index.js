@@ -14,30 +14,30 @@ import { useEffect, useRef } from 'react';
 import { Carousel } from "@arco-design/web-react";
 import "@arco-design/web-react/dist/css/arco.css";
 export default function Bottom() {
-  const sectionRef = useRef(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('active');
-          }, 550); // 300ms延迟执行
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
+  // const sectionRef = useRef(null);
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //   (entries) => {
+  //     entries.forEach(entry => {
+  //       if (entry.isIntersecting) {
+  //         setTimeout(() => {
+  //           entry.target.classList.add('active');
+  //         }, 550); // 300ms延迟执行
+  //       }
+  //     });
+  //   },
+  //   { threshold: 0.1 }
+  // );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+  //   if (sectionRef.current) {
+  //     observer.observe(sectionRef.current);
+  //   }
 
-    return () => observer.disconnect();
-  }, []);
+  //   return () => observer.disconnect();
+  // }, []);
   return (
        <footer  className="bg-black text-white py-16 px-4 lg:px-16">
-        <div  ref={sectionRef} className="scroll-animation bottom-animation container mx-auto">
+        <div  className="container mx-auto">
           {/* Impact Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             <div>
@@ -71,10 +71,10 @@ export default function Bottom() {
               </div>
               <div className="border-l-4 border-white p-6">
                 <div className="text-4xl font-bold mb-2 2xl:!text-6xl xl:!text-3xl">
-                  1000+
+                  128+
                 </div>
                 <div className="text-gray-300 text-sm 2xl:!text-lg xl:!text-base">
-                  Annual Production Units
+                 IIMT main team
                 </div>
               </div>
               <div className="border-l-4 border-white p-6">

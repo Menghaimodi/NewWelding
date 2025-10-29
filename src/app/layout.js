@@ -2,13 +2,25 @@
  * @Author: 我会想你的哈哈 2421145805@qq.com
  * @Date: 2025-09-22 17:35:51
  * @LastEditors: 我会想你的哈哈 2421145805@qq.com
- * @LastEditTime: 2025-09-26 16:41:55
+ * @LastEditTime: 2025-10-28 19:08:12
  * @FilePath: \new-welding\src\app\layout.js
  * @Description: 
  * 
  */
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
+const aleo = localFont({
+  src: [
+    { path: "../../public/Aleo/Aleo-Bold-2.otf", weight: "400", style: "normal" },
+    { path: "../../public/Aleo/Aleo-LightItalic-6.otf",  weight: "400", style: "italic" },
+    { path: "../../public/Aleo/Aleo-Light-5.otf",    weight: "700", style: "normal" },
+    { path: "../../public/Aleo/Aleo-Italic-4.otf",    weight: "700", style: "normal" },
+    { path: "../../public/Aleo/Aleo-BoldItalic-3.otf",    weight: "700", style: "normal" },
+    { path: "../../public/Aleo/Aleo-Bold-2.otf",    weight: "700", style: "normal" }
+  ],
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +41,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased ${aleo.className}` }
         suppressHydrationWarning
       >
         {children}

@@ -1,11 +1,22 @@
+/*
+ * @Author: 我会想你的哈哈 2421145805@qq.com
+ * @Date: 2025-09-22 17:35:51
+ * @LastEditors: 我会想你的哈哈 2421145805@qq.com
+ * @LastEditTime: 2025-10-28 17:52:21
+ * @FilePath: \new-welding\src\app\page.js
+ * @Description:
+ *
+ */
 "use client";
 import React from "react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Carousel } from "@arco-design/web-react";
 import Top from "@/app/components/Top";
 import Bottom from "@/app/components/Bottom";
 import "@arco-design/web-react/dist/css/arco.css";
+
 const textContent = [
   {
     title: "Professional Welding Technology",
@@ -30,6 +41,7 @@ const textContent = [
 ];
 export default function Home() {
   const sectionRefs = useRef([]);
+  const router = useRouter();
   // 设置元素到数组
   const setSectionRef = (index) => (el) => {
     sectionRefs.current[index] = el;
@@ -478,7 +490,10 @@ export default function Home() {
                         ))}
                       </div>
                       <div className="flex space-x-4 pt-8">
-                        <button className="xl:text-lg px-6 py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors">
+                        <button
+                          onClick={() => router.push("/product")}
+                          className="xl:text-lg px-6 py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors"
+                        >
                           Explore
                         </button>
                         <button
@@ -705,34 +720,33 @@ export default function Home() {
 
       {/* 集萃照片 */}
       <section>
-        <Image
-          src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/南京公司大楼照片1_1758849804131.JPG"
-          alt="MIG Welding Robot"
-          width={1800}
-          height={1600}
-          quality={95}
-          priority
-          className="w-full h-auto object-cover rounded-lg"
-        />
-      </section>
-
-      {/* Testimonial Section */}
-      <section className="py-16 lg:py-28 bg-white text-black">
-        <div
-          ref={setSectionRef(7)}
-          className="scroll-animation container mx-auto px-4 lg:px-16"
-        >
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="xl:text-2xl">Innovation</div>
-            <blockquote className="text-2xl 2xl:!text-4xl xl:!text-2xl font-light mb-8 leading-relaxed xl:mt-4">
-              &quot;About IIMT: Pioneering Intelligent Manufacturing Technology.
-              We are a national-level high-tech enterprise dedicated to
-              developing advanced human-machine integrated robotic
-              solutions.&quot;
-            </blockquote>
-            <div className="flex items-center justify-center space-x-4">
-              <div className="text-left">
-                <div className="font-semibold xl:text-2xl">Contact </div>
+        <div className="relative rounded-lg overflow-hidden">
+          <Image
+            src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/南京公司大楼照片1_1758849804131.JPG"
+            alt="MIG Welding Robot"
+            width={1800}
+            height={1600}
+            quality={95}
+            priority
+            className="w-full h-auto object-cover rounded-lg"
+          />
+          <div className="absolute inset-0 flex items-center justify-center ">
+            <div
+              ref={setSectionRef(7)}
+              className="max-w-4xl mx-auto text-center bg-white text-black p-10 scroll-animation"
+            >
+              <div className="xl:text-2xl">Innovation</div>
+              <blockquote className="text-2xl 2xl:!text-2xl xl:!text-2xl font-light mb-8 leading-relaxed xl:mt-4">
+                &quot;The company was founded in 2016 and is a high-tech
+                enterprise dedicated to the research and development of
+                human-machine integrated intelligent robots and application
+                system solutions. The R&D team is composed of experienced and
+                knowledgeable high-level talents with strong capabilities.&quot;
+              </blockquote>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="text-left">
+                  <div className="font-semibold xl:text-2xl">Contact </div>
+                </div>
               </div>
             </div>
           </div>
