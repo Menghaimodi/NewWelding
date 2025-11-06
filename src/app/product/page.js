@@ -1,13 +1,28 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import Top from "@/app/components/Top";
 import Bottom from "@/app/components/Bottom";
 import { useSearchParams } from "next/navigation";
 import productData from "@/app/enum/data.js";
 
 export default function ProductPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* 导航栏 */}
+      <Top />
+      <Suspense fallback={<div />}>
+        <ProductInner />
+      </Suspense>
+
+      {/* Footer */}
+      <Bottom />
+    </div>
+  );
+}
+
+function ProductInner() {
   const searchParams = useSearchParams();
   const nameParam = searchParams.get("name");
   const ProductName = useRef(null);
@@ -107,11 +122,8 @@ export default function ProductPage() {
     };
   }, []);
   return (
-    <div className="min-h-screen bg-white">
-      {/* 导航栏 */}
-      <Top />
-
-      {/* 产品页主内容 */}
+    <div>
+      {/* Home / Robots /  */}
       <section
         ref={setSectionRef(1)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-10 pt-30 "
@@ -433,7 +445,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Mobility Quick Deployment Section */}
+      {/* On-Demand Mobility Quick Deployment */}
       <section
         ref={setSectionRef(2)}
         className="scroll-animation container mx-auto lg:px-16  lg:py-16 flex"
@@ -517,7 +529,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Powerful Functions — No Programming Section */}
+      {/* Powerful Functions No Programming */}
       <section
         ref={setSectionRef(3)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-16"
@@ -672,7 +684,6 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Support a number of welding machines */}
       <section
         ref={setSectionRef(4)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-16 "
@@ -682,7 +693,7 @@ export default function ProductPage() {
           <h2 className="text-2xl lg:text-6xl font-bold mb-4 lg:!leading-20 lg:w-[50%]">
             {headline.current}
           </h2>
-           <button className="px-5 lg:!text-lg py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors mt-2">
+          <button className="px-5 lg:!text-lg py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors mt-2">
             More
           </button>
         </div>
@@ -690,7 +701,7 @@ export default function ProductPage() {
           {title.current}
         </p>
 
-         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           {/* Card: Triangular */}
           <div className="rounded-xl overflow-hidden">
             <div className="relative">
@@ -777,7 +788,6 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Supports Multiple Weave Patterns Section */}
       <section
         ref={setSectionRef(5)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-16 "
@@ -785,7 +795,7 @@ export default function ProductPage() {
         <div className="text-sm text-gray-500 mb-2">Possibility</div>
         <div className="flex items-start justify-between">
           <h2 className="text-2xl lg:text-6xl font-bold mb-4 lg:!leading-20 lg:w-[50%]">
-            Supports Multiple Weave  Patterns
+            Supports Multiple Weave Patterns
           </h2>
           <button className="px-5 lg:!text-lg py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors mt-2">
             Tracking
@@ -883,15 +893,14 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Supports Multiple Weave Patterns Section */}
       <section
         ref={setSectionRef(6)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-16"
       >
         <div className="text-lg text-gray-500 mb-2">Whatever</div>
         <div className="flex items-start justify-between">
-            <h2 className="text-2xl lg:text-6xl font-bold mb-4 lg:!leading-20 lg:w-[80%]">
-            Applicable to Various  Metal Materials
+          <h2 className="text-2xl lg:text-6xl font-bold mb-4 leading-snug lg:leading-[5rem] lg:w-[70%] tracking-tight">
+            Applicable to Various Metal Materials
           </h2>
           <button className="px-5 lg:!text-lg py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors mt-2">
             Product
@@ -983,14 +992,13 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Supports Multiple Weave Patterns Section */}
       <section
         ref={setSectionRef(7)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-16"
       >
         <div className="text-lg text-gray-500 mb-2">Innovation</div>
         <div className="flex items-start justify-between">
-           <h2 className="text-2xl lg:text-6xl font-bold mb-4 lg:!leading-20 lg:w-[50%]">
+          <h2 className="text-2xl lg:text-6xl font-bold mb-4 lg:!leading-20 lg:w-[50%]">
             Applicable to Various Processes
           </h2>
           <button className="px-5 lg:!text-lg py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors mt-2">
@@ -1081,7 +1089,7 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
-      {/* Automate your welding process CTA Section */}
+
       <section
         ref={setSectionRef(8)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-20"
@@ -1104,7 +1112,6 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Contact us Section */}
       <section
         ref={setSectionRef(9)}
         className="scroll-animation container mx-auto px-4 lg:px-16 py-16"
@@ -1176,7 +1183,6 @@ export default function ProductPage() {
                 className="w-full border-2 border-black rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-black"
               />
               <label htmlFor="email" className="block text-gray-800 mb-2">
-                {" "}
                 Message
               </label>
               <textarea
@@ -1203,9 +1209,6 @@ export default function ProductPage() {
           </form>
         </div>
       </section>
-
-      {/* Footer */}
-      <Bottom />
     </div>
   );
 }
