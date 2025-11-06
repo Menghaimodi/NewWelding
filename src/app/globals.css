@@ -16,11 +16,6 @@
   transform: translateY(0);
 }
 
-/* 为Bottom组件添加特定延迟类 */
-.bottom-animation {
-  transition-delay: 100ms !important; /* 300毫秒延迟 */
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -2,7 +2,7 @@
  * @Author: 我会想你的哈哈 2421145805@qq.com
  * @Date: 2025-09-22 17:35:51
  * @LastEditors: 我会想你的哈哈 2421145805@qq.com
- * @LastEditTime: 2025-10-28 17:52:21
+ * @LastEditTime: 2025-11-06 19:39:52
  * @FilePath: \new-welding\src\app\page.js
  * @Description:
  *
@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { Carousel } from "@arco-design/web-react";
 import Top from "@/app/components/Top";
 import Bottom from "@/app/components/Bottom";
+import Link from "next/link";
 import "@arco-design/web-react/dist/css/arco.css";
 
 const textContent = [
@@ -86,7 +87,7 @@ export default function Home() {
           poster="/hero-background.png"
         >
           <source
-            src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/website_1758805989725.mp4"
+            src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/index_1762310304790.mp4"
             type="video/mp4"
           />
         </video>
@@ -108,12 +109,16 @@ export default function Home() {
             capabilities with IIMT&apos;s advanced robotic solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="xl:text-xl bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              MIG Robot
-            </button>
-            <button className="xl:text-xl border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
-              Laser Robot
-            </button>
+            <Link href="/product?name=MIG Robot">
+              <button className="w-full lg:h-[8vh] xl:text-xl bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                MIG Robot
+              </button>
+            </Link>
+            <Link href="/product?name=Laser Robot">
+              <button className="w-full lg:h-[8vh] xl:text-xl border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                Laser Robot
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -125,6 +130,7 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="text-center mb-16">
+            <p className="mb-3 text-base">Products</p>
             <h2 className="text-3xl lg:text-5xl font-bold mb-4">
               Advanced welding solutions
             </h2>
@@ -140,11 +146,11 @@ export default function Home() {
                   alt="MIG Welding Robot"
                   width={500}
                   height={500}
-                  className="w-[100%] 2xl:h-[350px] xl:h-[280px] object-contain"
+                  className="w-full 2xl:h-[32vh] xl:h-[280px] object-contain"
                 />
               </div>
               <div className="">
-                {" "}
+                <p className="leading-10">Innovation</p>
                 <h3 className="text-2xl font-bold mb-4 text-black 2xl:!text-4xl xl:!text-2xl">
                   MIG Welding Robot
                 </h3>
@@ -154,7 +160,13 @@ export default function Home() {
                   multi-pass) for automotive, shipbuilding, and steel
                   structures.
                 </p>
-                <button className="xl:text-lg flex items-center text-black font-medium text-sm hover:text-gray-700 transition-colors">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/product?name=MIG Robot";
+                  }}
+                  className="xl:text-lg flex items-center text-black font-medium text-sm hover:text-gray-700 transition-colors"
+                >
                   Details
                   <svg
                     className="w-4 h-4 ml-2"
@@ -174,15 +186,16 @@ export default function Home() {
             </div>
 
             <div className="bg-white p-8 rounded-2xl border-2 border-black hover:shadow-lg transition-shadow">
-              <div className="mb-6 ">
+              <div className="mb-6">
                 <Image
                   src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Laser_1760429195740.png"
                   alt="Laser Welding Robot"
                   width={400}
                   height={300}
-                  className="w-[100%] h-[350px] xl:h-[280px] object-contain "
+                  className="w-full 2xl:h-[32vh] xl:h-[280px] object-contain "
                 />
               </div>
+              <p className="leading-10">Quality</p>
               <h3 className="text-2xl font-bold mb-4 text-black 2xl:!text-4xl xl:!text-2xl">
                 Laser Welding Robot
               </h3>
@@ -192,7 +205,13 @@ export default function Home() {
                 copper, and aluminum in aerospace, electronics, and precision
                 industries.
               </p>
-              <button className="xl:text-lg flex items-center text-black font-medium text-sm hover:text-gray-700 transition-colors">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = "/product?name=Laser Robot";
+                }}
+                className="xl:text-lg flex items-center text-black font-medium text-sm hover:text-gray-700 transition-colors"
+              >
                 Details
                 <svg
                   className="w-4 h-4 ml-2"
@@ -236,7 +255,7 @@ export default function Home() {
                 description:
                   "Portable design enables quick setup and easy repositioning in various work environments.",
                 video:
-                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/MagneticBase_1758871160193.mp4",
+                  "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/MagneticBase_1762310122808.mp4",
               },
               {
                 category: "Operation",
@@ -265,7 +284,7 @@ export default function Home() {
             ].map((service, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg border-2 border-black xl:!max-w-screen-lg 2xl:!max-w-screen-2xl"
+                className="bg-white rounded-lg border-2 border-black  m-4 xl:!max-w-screen-lg 2xl:!max-w-screen-2xl"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                   {/* 移动端：文字在上，图片在下；桌面端：根据奇偶数决定布局 */}
@@ -416,6 +435,7 @@ export default function Home() {
                   "Multi-mode welding: straight, arc, weaving, multi-pass",
                   "Ideal for automotive, shipbuilding, aerospace, and steel structures",
                 ],
+                hrefName: "MIG Robot",
               },
               {
                 category: "Innovation",
@@ -433,11 +453,12 @@ export default function Home() {
                   "Real-time quality monitoring and control systems",
                   "Perfect for electronics, aerospace, and precision manufacturing",
                 ],
+                hrefName: "Laser Robot",
               },
             ].map((product, index) => (
               <div
                 key={index}
-                className="xl:pt-16 bg-white rounded-lg border-2 border-black p-10 2xl:!p-8  xl:!max-w-screen-lg 2xl:!max-w-screen-2xl"
+                className="xl:pt-16 bg-white rounded-lg  p-2  xl:p-10 2xl:!p-8  xl:!max-w-screen-lg 2xl:!max-w-screen-2xl"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                   <div>
@@ -491,7 +512,10 @@ export default function Home() {
                       </div>
                       <div className="flex space-x-4 pt-8">
                         <button
-                          onClick={() => router.push("/product")}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href = `/product?name=${product.hrefName}`;
+                          }}
                           className="xl:text-lg px-6 py-2 border-2 border-black rounded-full text-black font-medium hover:bg-black hover:text-white transition-colors"
                         >
                           Explore
@@ -720,7 +744,7 @@ export default function Home() {
 
       {/* 集萃照片 */}
       <section>
-        <div className="relative rounded-lg overflow-hidden">
+        <div className="relative  overflow-hidden">
           <Image
             src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/南京公司大楼照片1_1758849804131.JPG"
             alt="MIG Welding Robot"
@@ -728,15 +752,35 @@ export default function Home() {
             height={1600}
             quality={95}
             priority
-            className="w-full h-auto object-cover rounded-lg"
+            className="w-full h-auto object-cover"
           />
-          <div className="absolute inset-0 flex items-center justify-center ">
+          {/* 桌面布局 */}
+          <div className="absolute inset-0 flex items-center justify-center hidden lg:flex">
             <div
               ref={setSectionRef(7)}
               className="max-w-4xl mx-auto text-center bg-white text-black p-10 scroll-animation"
             >
               <div className="xl:text-2xl">Innovation</div>
-              <blockquote className="text-2xl 2xl:!text-2xl xl:!text-2xl font-light mb-8 leading-relaxed xl:mt-4">
+              <blockquote className="text-base 2xl:!text-2xl xl:!text-2xl font-light mb-8 leading-relaxed xl:mt-4">
+                &quot;The company was founded in 2016 and is a high-tech
+                enterprise dedicated to the research and development of
+                human-machine integrated intelligent robots and application
+                system solutions. The R&D team is composed of experienced and
+                knowledgeable high-level talents with strong capabilities.&quot;
+              </blockquote>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="text-left">
+                  <div className="font-semibold xl:text-2xl">Contact </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 移动布局 */}
+          <div className="lg:hidden  flex items-center justify-center">
+            <div className="max-w-4xl mx-auto text-center bg-white text-black p-10">
+              <div className="xl:text-2xl">Innovation</div>
+              <blockquote className="text-base 2xl:!text-2xl xl:!text-2xl font-light mb-8 leading-relaxed xl:mt-4">
                 &quot;The company was founded in 2016 and is a high-tech
                 enterprise dedicated to the research and development of
                 human-machine integrated intelligent robots and application
