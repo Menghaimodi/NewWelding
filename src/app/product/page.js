@@ -542,9 +542,9 @@ function ProductInner() {
               description:
                 "JITRI transforms the experience of skilled welders into digital welding process packages, featuring a quick and intuitive interface. Users can easily set welding trajectories for straight welding, weave welding, and circular arc welding using the teaching pendant, as well as access various manual debugging functions such as simulated welding, manual wire feeding, wire retracting, gas inspection, and spot welding.",
               imgstr:
-                "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Visually1_1761811956068.png",
+                "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Visually1_1762588225252.jpg",
               imgstr1:
-                "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Visually_1761811877035.png",
+                "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/Visually_1762588241338.jpg",
               buttonText: "Digital",
             },
             {
@@ -634,7 +634,7 @@ function ProductInner() {
                             height={600}
                             className="w-[80%] h-auto object-cover rounded-lg"
                           />
-                          <p className="text-gray-600 w-[86%] mb-6 2xl:!text-xl xl:!text-lg 2xl:!leading-9 xl:!leading-7">
+                          <p className="text-gray-600 w-[86%] mb-6 2xl:!text-xl xl:!text-lg 2xl:!leading-9 xl:!leading-7 mt-5">
                             {service.description}
                           </p>
                           <div className="flex space-x-4">
