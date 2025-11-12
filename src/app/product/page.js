@@ -42,6 +42,7 @@ function ProductInner() {
   const nameErrorRef = useRef("");
   const EmailErrorRef = useRef("");
   const MessageErrorRef = useRef("");
+  const [agreed, setAgreed] = useState(false);
 
   const [, forceUpdate] = useState(0);
   const validateName = (value) => {
@@ -89,7 +90,6 @@ function ProductInner() {
     }
   };
 
-
   // 新增：统一触发三个校验的 onBlur
   const handleAllBlur = () => {
     nameErrorRef.current = validateName(nameRef.current);
@@ -99,8 +99,12 @@ function ProductInner() {
   };
 
   async function handleSubmit(e) {
-    // console.log("环境变量：",process.env.RESEND_API_KEY)
     e.preventDefault();
+    console.log("agreed==",agreed)
+    if (!agreed) {
+      toast.error("Please agree to terms and conditions first.");
+      return;
+    }
     const form = e.currentTarget;
     console.log("form===", form.elements);
     const payload = {
@@ -1236,7 +1240,7 @@ function ProductInner() {
                 name="email"
                 type="text"
                 onChange={handleEmailChange}
-               onBlur={handleAllBlur}
+                onBlur={handleAllBlur}
                 autoComplete="email"
                 aria-invalid={!!EmailErrorRef.current}
                 aria-describedby="email-error"
@@ -1281,6 +1285,8 @@ function ProductInner() {
               <input
                 type="checkbox"
                 className="w-5 h-5 border-2 border-black rounded"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
               />
               I agree to terms and conditions
             </label>

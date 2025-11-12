@@ -2,7 +2,7 @@
  * @Author: 我会想你的哈哈 2421145805@qq.com
  * @Date: 2025-11-10 15:19:03
  * @LastEditors: 我会想你的哈哈 2421145805@qq.com
- * @LastEditTime: 2025-11-12 09:03:08
+ * @LastEditTime: 2025-11-12 10:41:26
  * @FilePath: \new-welding\src\app\api\contact\route.js
  * @Description: 
  * 
@@ -42,7 +42,9 @@ export async function POST(request) {
 
     const resp = await resend.emails.send({
       from: "onboarding@resend.dev",// 生产建议换成已验证域名的发件人
-      to: "saiat071199@gmail.com",
+      // chenzhixin2233@gmail.com
+      // saiat071199@gmail.com
+      to: "chenzhixin2233@gmail.com",
       subject,
       html,
       text,
