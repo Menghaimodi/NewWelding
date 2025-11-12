@@ -2,19 +2,17 @@
  * @Author: 我会想你的哈哈 2421145805@qq.com
  * @Date: 2025-11-10 15:19:03
  * @LastEditors: 我会想你的哈哈 2421145805@qq.com
- * @LastEditTime: 2025-11-12 10:41:26
+ * @LastEditTime: 2025-11-12 15:27:03
  * @FilePath: \new-welding\src\app\api\contact\route.js
- * @Description: 
- * 
+ * @Description:
+ *
  */
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = new Resend("re_MuEfJv9w_68mfcXxbmD2ZSW317bHcENsM");
+// const resend = new Resend("re_MuEfJv9w_68mfcXxbmD2ZSW317bHcENsM");
 export async function POST(request) {
   try {
     const { name, email, message } = await request.json();
-    //     const apiKey = process;
-    // console.log("apiKey==", apiKey);
     if (!name || !email || !message) {
       return Response.json(
         { ok: false, error: "Missing required fields" },
@@ -40,20 +38,28 @@ export async function POST(request) {
     `;
     const text = `New contact message\nName: ${name}\nEmail: ${email}\nMessage:\n${message}`;
 
-    const resp = await resend.emails.send({
-      from: "onboarding@resend.dev",// 生产建议换成已验证域名的发件人
-      // chenzhixin2233@gmail.com
-      // saiat071199@gmail.com
-      to: "chenzhixin2233@gmail.com",
+    const transporter = nodemailer.createTransport({
+      host: "smtp.qq.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "2421145805@qq.com",
+        pass: "zhbrgmjwnjvxdjhj",
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: "2421145805@qq.com",
+      to: "chenzx@iimt.org.cn,marketing@iimt.org.cn,sayat@iimt.org.cn,zhangzj@iimt.org.cn",
       subject,
       html,
       text,
       replyTo: email,
     });
 
-    if (resp.error) {
+    if (!info.accepted || info.accepted.length === 0) {
       return Response.json(
-        { ok: false, error: resp.error.message },
+        { ok: false, error: "SMTP rejected the message" },
         { status: 500 }
       );
     }
