@@ -122,8 +122,7 @@ function ProductInner() {
       console.log("成功ping通========");
       toast.success("The email has been sent successfully!");
     } else {
-      // 错误提示
-      // ... existing code ...
+      toast.error(data.error);
     }
   }
 
