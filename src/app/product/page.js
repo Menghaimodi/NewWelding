@@ -6,6 +6,7 @@ import Top from "@/app/components/Top";
 import Bottom from "@/app/components/Bottom";
 import { useSearchParams } from "next/navigation";
 import productData from "@/app/enum/data.js";
+import { toast } from "sonner";
 
 export default function ProductPage() {
   return (
@@ -26,7 +27,6 @@ function ProductInner() {
   const searchParams = useSearchParams();
   const nameParam = searchParams.get("name");
   const ProductName = useRef(null);
-  const TechnicalList = useRef([]);
   const title2 = useRef(null);
   const video = useRef(null);
   const imageList = useRef([]);
@@ -40,22 +40,26 @@ function ProductInner() {
 
   const messageRef = useRef("");
   const nameErrorRef = useRef("");
+  const EmailErrorRef = useRef("");
+  const MessageErrorRef = useRef("");
 
   const [, forceUpdate] = useState(0);
   const validateName = (value) => {
     const v = String(value || "").trim();
-    if (!v) return "Please enter your name.";
-    if (v.length < 2) return "At least two characters";
-    if (!/^[\p{L}\s.'-]+$/u.test(v)) return "Only letters, Spaces and .'-";
-    return "";
+    return v ? "" : "Please enter your name.";
   };
 
-  const validateemai = (value) => {
+  const validateEmail = (value) => {
     const v = String(value || "").trim();
-    if (!v) return "Please enter your name.";
-    if (v.length < 2) return "At least two characters";
-    if (!/^[\p{L}\s.'-]+$/u.test(v)) return "Only letters, Spaces and .'-";
-    return "";
+    if (!v) return "Please enter your email address.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
+      return "Please enter a valid email address.";
+    if (v.length > 254) return "Email address is too long.";
+  };
+
+  const validateMessage = (value) => {
+    const v = String(value || "").trim();
+    return v ? "" : "Please enter your Message.";
   };
 
   const handleNameChange = (e) => {
@@ -67,11 +71,61 @@ function ProductInner() {
     }
   };
 
-  const handleNameBlur = () => {
+  const handleEmailChange = (e) => {
+    emailRef.current = e.target.value;
+    // 已存在错误时，实时更新错误提示
+    if (EmailErrorRef.current) {
+      EmailErrorRef.current = validateEmail(emailRef.current);
+      forceUpdate((t) => t + 1);
+    }
+  };
+
+  const handleMessageChange = (e) => {
+    messageRef.current = e.target.value;
+    // 已存在错误时，实时更新错误提示
+    if (MessageErrorRef.current) {
+      MessageErrorRef.current = validateMessage(messageRef.current);
+      forceUpdate((t) => t + 1);
+    }
+  };
+
+
+  // 新增：统一触发三个校验的 onBlur
+  const handleAllBlur = () => {
     nameErrorRef.current = validateName(nameRef.current);
-    // 触发一次刷新以更新错误提示
+    EmailErrorRef.current = validateEmail(emailRef.current);
+    MessageErrorRef.current = validateMessage(messageRef.current);
     forceUpdate((t) => t + 1);
   };
+
+  async function handleSubmit(e) {
+    // console.log("环境变量：",process.env.RESEND_API_KEY)
+    e.preventDefault();
+    const form = e.currentTarget;
+    console.log("form===", form.elements);
+    const payload = {
+      name: form.elements.name?.value || "",
+      email: form.elements.email?.value || "",
+      message: form.elements.message?.value || "",
+    };
+    console.log("payload===", payload);
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    console.log("res===", res);
+    const data = await res.json();
+    if (data.ok) {
+      console.log("成功ping通========");
+      toast.success("The email has been sent successfully!");
+    } else {
+      // 错误提示
+      // ... existing code ...
+    }
+  }
 
   const setSectionRef = (index) => (el) => {
     sectionRefs.current[index] = el;
@@ -1151,15 +1205,16 @@ function ProductInner() {
           </div>
 
           {/* 右侧表单 */}
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-gray-800 mb-2">Name</label>
               <input
+                id="name"
+                name="name"
                 type="text"
                 placeholder=""
                 onChange={handleNameChange}
-                onBlur={handleNameBlur}
-                required
+                onBlur={handleAllBlur}
                 autoComplete="name"
                 aria-invalid={!!nameErrorRef.current}
                 aria-describedby="name-error"
@@ -1178,18 +1233,50 @@ function ProductInner() {
                 Email
               </label>
               <input
+                id="email"
+                name="email"
                 type="text"
+                onChange={handleEmailChange}
+               onBlur={handleAllBlur}
+                autoComplete="email"
+                aria-invalid={!!EmailErrorRef.current}
+                aria-describedby="email-error"
                 placeholder=""
-                className="w-full border-2 border-black rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-black"
+                className={`w-full border-2 rounded-xl p-3 focus:outline-none focus:ring-2 ${
+                  EmailErrorRef.current
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-black focus:ring-black"
+                }`}
               />
+              {EmailErrorRef.current && (
+                <p id="email-error" className="mt-1 text-sm text-red-600">
+                  {EmailErrorRef.current}
+                </p>
+              )}
               <label htmlFor="email" className="block text-gray-800 mb-2">
                 Message
               </label>
               <textarea
+                id="message"
+                name="message"
+                onChange={handleMessageChange}
+                onBlur={handleAllBlur}
                 rows={6}
                 placeholder="Share your welding challenges"
-                className="w-full border-2 border-black rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-black"
+                autoComplete="message"
+                aria-invalid={!!MessageErrorRef.current}
+                aria-describedby="message-error"
+                className={`w-full border-2 rounded-xl p-3 focus:outline-none focus:ring-2 ${
+                  MessageErrorRef.current
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-black focus:ring-black"
+                }`}
               />
+              {MessageErrorRef.current && (
+                <p id="message-error" className="mt-1 text-sm text-red-600">
+                  {MessageErrorRef.current}
+                </p>
+              )}
             </div>
             <label className="flex items-center gap-3 text-sm text-gray-700">
               <input
@@ -1199,10 +1286,8 @@ function ProductInner() {
               I agree to terms and conditions
             </label>
             <button
-              className="px-6 py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-colors"
-              onClick={() => {
-                Message.info("This is an info message!");
-              }}
+              type="submit"
+              className="w-full bg-blue-500 text-white px-6 py-3 rounded-3xl font-semibold"
             >
               Send
             </button>

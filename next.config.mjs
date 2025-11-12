@@ -4,8 +4,8 @@
  * @LastEditors: 我会想你的哈哈 2421145805@qq.com
  * @LastEditTime: 2025-09-26 16:18:56
  * @FilePath: \new-welding\next.config.mjs
- * @Description: 
- * 
+ * @Description:
+ *
  */
 /** @type {import('next').NextConfig} */
 const nextConfig = {

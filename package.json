@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@arco-design/web-react": "^2.66.5",
+    "@arco-design/web-react": "^2.66.7",
     "next": "15.5.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "resend": "^6.4.2",
+    "sonner": "^2.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
