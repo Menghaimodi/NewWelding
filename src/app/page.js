@@ -42,7 +42,9 @@ const textContent = [
 ];
 export default function Home() {
   const sectionRefs = useRef([]);
-  const router = useRouter();
+  const base =
+    "https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/";
+  const filename = "南京公司大楼照片1_1758849804131.JPG";
   // 设置元素到数组
   const setSectionRef = (index) => (el) => {
     sectionRefs.current[index] = el;
@@ -746,7 +748,7 @@ export default function Home() {
       <section>
         <div className="relative  overflow-hidden">
           <Image
-            src="https://iimt-informatization.oss-cn-hangzhou.aliyuncs.com/temp/南京公司大楼照片1_1758849804131.JPG"
+            src={`${base}${encodeURIComponent(filename)}`}
             alt="MIG Welding Robot"
             width={1800}
             height={1600}
