@@ -2,7 +2,7 @@
  * @Author: 我会想你的哈哈 2421145805@qq.com
  * @Date: 2025-09-22 17:35:51
  * @LastEditors: 我会想你的哈哈 2421145805@qq.com
- * @LastEditTime: 2025-11-06 19:39:52
+ * @LastEditTime: 2025-11-13 10:27:35
  * @FilePath: \new-welding\src\app\page.js
  * @Description:
  *
@@ -11,8 +11,7 @@
 import React from "react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
-import { Carousel } from "@arco-design/web-react";
+import { Carousel  } from "@arco-design/web-react";
 import Top from "@/app/components/Top";
 import Bottom from "@/app/components/Bottom";
 import Link from "next/link";
@@ -753,7 +752,8 @@ export default function Home() {
             width={1800}
             height={1600}
             quality={95}
-            priority
+                loading="lazy"
+                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             className="w-full h-auto object-cover"
           />
           {/* 桌面布局 */}
